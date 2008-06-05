@@ -1,0 +1,3 @@
+
+Given {read,write}_handle methods, produce methods for strings and filenames.
+

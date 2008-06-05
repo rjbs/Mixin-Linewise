@@ -2,6 +2,8 @@ use strict;
 use warnings;
 package Mixin::Linewise::Readers;
 
+our $VERSION = '0.001';
+
 use Carp ();
 use IO::File;
 use IO::String;
@@ -13,12 +15,12 @@ use Sub::Exporter -setup => {
 
 =head1 NAME
 
-Mixin::Linewise - get linewise handlers for strings and filenames
+Mixin::Linewise::Readers - get linewise readers for strings and filenames
 
 =head1 SYNOPSIS
 
   package Your::Pkg;
-  use Mixin::Linewise -readers;
+  use Mixin::Linewise::Readers -readers;
 
   sub read_handle {
     my ($self, $handle) = @_;
