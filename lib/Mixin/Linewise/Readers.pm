@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Mixin::Linewise::Readers;
 
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 
 use Carp ();
 use IO::File;
@@ -10,7 +10,10 @@ use IO::String;
 
 use Sub::Exporter -setup => {
   exports => { map {; "read_$_" => \"_mk_read_$_" } qw(file string) },
-  groups  => { default => [ qw(read_file read_string) ] },
+  groups  => {
+    default => [ qw(read_file read_string) ],
+    readers => [ qw(read_file read_string) ],
+  },
 };
 
 =head1 NAME

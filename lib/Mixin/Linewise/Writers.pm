@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Mixin::Linewise::Writers;
 
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 
 use Carp ();
 use IO::File;
@@ -10,7 +10,10 @@ use IO::String;
 
 use Sub::Exporter -setup => {
   exports => { map {; "write_$_" => \"_mk_write_$_" } qw(file string) },
-  groups  => { default => [ qw(write_file write_string) ] },
+  groups  => {
+    default => [ qw(write_file write_string) ],
+    writers => [ qw(write_file write_string) ],
+  },
 };
 
 =head1 NAME
