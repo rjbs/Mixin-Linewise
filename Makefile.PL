@@ -6,6 +6,8 @@ requires('IO::String' => 0.000); # minimum unknown
 requires('IO::File'   => 0.000); # minimum unknown
 requires('Sub::Exporter' => 0.900); # minimum unknown
 
+test_requires('Test::More' => 0.88); # done_testing
+
 extra_tests;
 
 WriteAll;

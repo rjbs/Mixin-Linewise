@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Mixin::Linewise;
 use 5.006;
-our $VERSION = '0.002';
+our $VERSION = '0.003';
 use Carp ();
 Carp::confess "not meant to be loaded";
 

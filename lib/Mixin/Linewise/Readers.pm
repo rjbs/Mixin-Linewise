@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Mixin::Linewise::Readers;
 
-our $VERSION = '0.002';
+our $VERSION = '0.003';
 
 use Carp ();
 use IO::File;
