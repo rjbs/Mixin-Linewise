@@ -8,6 +8,7 @@ requires('Sub::Exporter' => 0.900); # minimum unknown
 
 test_requires('Test::More' => 0.88); # done_testing
 
+auto_manifest;
 extra_tests;
 
 WriteAll;
