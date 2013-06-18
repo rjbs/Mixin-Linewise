@@ -1,5 +1,8 @@
 Changelog for Mixin-Linewise
 
+{{$NEXT}}
+          repackage
+
 0.003     2010-02-14
           add Test::More prereq
 

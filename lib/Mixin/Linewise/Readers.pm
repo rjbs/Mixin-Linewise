@@ -1,8 +1,7 @@
 use strict;
 use warnings;
 package Mixin::Linewise::Readers;
-
-our $VERSION = '0.003';
+# ABSTRACT: get linewise readers for strings and filenames
 
 use Carp ();
 use IO::File;
@@ -15,10 +14,6 @@ use Sub::Exporter -setup => {
     readers => [ qw(read_file read_string) ],
   },
 };
-
-=head1 NAME
-
-Mixin::Linewise::Readers - get linewise readers for strings and filenames
 
 =head1 SYNOPSIS
 
@@ -112,26 +107,5 @@ sub _mk_read_string {
     $invocant->$method($handle, @_);
   }
 }
-
-=head1 BUGS
-
-Bugs should be reported via the CPAN bug tracker at
-
-L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Mixin-Linewise>
-
-For other issues, or commercial enhancement or support, contact the author.
-
-=head1 AUTHOR
-
-Ricardo SIGNES, C<< E<lt>rjbs@cpan.orgE<gt> >>
-
-=head1 COPYRIGHT
-
-Copyright 2008, Ricardo SIGNES.
-
-This program is free software; you may redistribute it and/or modify it under
-the same terms as Perl itself.
-
-=cut
 
 1;
