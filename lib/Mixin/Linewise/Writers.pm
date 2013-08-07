@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Mixin::Linewise::Writers;
-# ABSTRACT: get linewise writeers for strings and filenames
+# ABSTRACT: get linewise writers for strings and filenames
 
 use Carp ();
 use IO::File;
