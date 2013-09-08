@@ -74,7 +74,7 @@ sub _mk_read_file {
     Carp::croak "file '$filename' does not exist" unless -e $filename;
     Carp::croak "'$filename' is not a plain file" unless -f _;
 
-    my $handle = IO::File->new($filename, '<')
+    my $handle = IO::File->new($filename, '<:utf8')
       or Carp::croak "couldn't read file '$filename': $!";
 
     $invocant->$method($handle, @_);
