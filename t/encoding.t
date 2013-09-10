@@ -21,7 +21,7 @@ for my $pair (
   [ file_raw    => 't/utf8.txt' => $raw             ],
 ) {
   my ($suffix, $file, $expected, $enc) = @$pair; 
-  my $options = $enc ? { encoding => $enc } : undef;
+  my $options = $enc ? { binmode => $enc } : undef;
   my $method = "read_$suffix";
   is_deeply(
     MLTests->$method(( $options ? $options : () ), $file),

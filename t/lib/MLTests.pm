@@ -6,7 +6,7 @@ use Mixin::Linewise::Readers
   -readers => { -suffix => '_sub', method => 'read_handle_sub' },
   -readers => { -suffix => '_mul', method => 'read_handle_mul' },
   -readers => { -suffix => '_utf8', method => 'read_handle_val' },
-  -readers => { -suffix => '_raw', method => 'read_handle_val', encoding => ':raw' };
+  -readers => { -suffix => '_raw', method => 'read_handle_val', binmode => ':raw' };
 
 sub read_handle {
   my ($self, $fh) = @_;

@@ -50,11 +50,11 @@ information.
 Both can be generated with the option "method" which requests that a method
 other than "read_handle" is called with the created IO::Handle.
 
-If given an "encoding" option, any C<read_file> type functions will use
+If given a "binmode" option, any C<read_file> type functions will use
 that as an IO layer, otherwise, the default is C<encoding(UTF-8)>.
 
-  use Mixin::Linewise::Readers -readers => { encoding => "raw" };
-  use Mixin::Linewise::Readers -readers => { encoding => "encoding(iso-8859-1)" };
+  use Mixin::Linewise::Readers -readers => { binmode => "raw" };
+  use Mixin::Linewise::Readers -readers => { binmode => "encoding(iso-8859-1)" };
 
 =head2 read_file
 
@@ -65,7 +65,7 @@ If generated, the C<read_file> export attempts to open the named file for
 reading, and then calls C<read_handle> on the opened handle.
 
 An optional hash reference may be passed before C<$filename> with options.
-The only valid option currently is C<encoding>, which overrides any
+The only valid option currently is C<binmode>, which overrides any
 default set from C<use> or the built-in C<encoding(UTF-8)>.
 
 Any arguments after C<$filename> are passed along after to C<read_handle>.
@@ -76,7 +76,7 @@ sub _mk_read_file {
   my ($self, $name, $arg) = @_;
 
   my $method = defined $arg->{method} ? $arg->{method} : 'read_handle';
-  my $dflt_enc = defined $arg->{encoding} ? $arg->{encoding} : 'encoding(UTF-8)';
+  my $dflt_enc = defined $arg->{binmode} ? $arg->{binmode} : 'encoding(UTF-8)';
 
   sub {
     my ($invocant, $options, $filename);
@@ -88,15 +88,15 @@ sub _mk_read_file {
       ($invocant, $filename) = splice @_, 0, 2;
     }
 
-    $options->{encoding} = $dflt_enc unless defined $options->{encoding};
-    $options->{encoding} =~ s/^://; # we add it later
+    $options->{binmode} = $dflt_enc unless defined $options->{binmode};
+    $options->{binmode} =~ s/^://; # we add it later
 
     # Check the file
     Carp::croak "no filename specified"           unless $filename;
     Carp::croak "file '$filename' does not exist" unless -e $filename;
     Carp::croak "'$filename' is not a plain file" unless -f _;
 
-    my $handle = IO::File->new($filename, "<:$options->{encoding}")
+    my $handle = IO::File->new($filename, "<:$options->{binmode}")
       or Carp::croak "couldn't read file '$filename': $!";
 
     $invocant->$method($handle, @_);
