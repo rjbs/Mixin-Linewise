@@ -3,6 +3,7 @@ use warnings;
 package Mixin::Linewise::Writers;
 # ABSTRACT: get linewise writers for strings and filenames
 
+use 5.8.1; # PerlIO
 use Carp ();
 use IO::File;
 use IO::String;

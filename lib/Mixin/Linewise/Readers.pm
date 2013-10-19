@@ -3,6 +3,7 @@ use warnings;
 package Mixin::Linewise::Readers;
 # ABSTRACT: get linewise readers for strings and filenames
 
+use 5.8.1; # PerlIO
 use Carp ();
 use IO::File;
 use IO::String;
