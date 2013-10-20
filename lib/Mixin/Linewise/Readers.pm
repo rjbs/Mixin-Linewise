@@ -6,7 +6,6 @@ package Mixin::Linewise::Readers;
 use 5.8.1; # PerlIO
 use Carp ();
 use IO::File;
-use IO::String;
 
 use Sub::Exporter -setup => {
   exports => { map {; "read_$_" => \"_mk_read_$_" } qw(file string) },
@@ -108,7 +107,7 @@ sub _mk_read_file {
 
   Your::Pkg->read_string($string);
 
-If generated, the C<read_string> creates an IO::String handle from the given
+If generated, the C<read_string> creates an in-memory handle from the given
 string, and then calls C<read_handle> on the opened handle.
 
 Any arguments after C<$string> are passed along after to C<read_handle>.
@@ -125,7 +124,8 @@ sub _mk_read_string {
 
     Carp::croak "no string provided" unless defined $string;
 
-    my $handle = IO::String->new(\$string);
+    open my $handle, '<', \$string
+      or Carp::croak("can't open handle to read from string: $!");
 
     $invocant->$method($handle, @_);
   }
