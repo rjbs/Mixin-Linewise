@@ -118,10 +118,12 @@ sub _mk_write_string {
 
     my $string = '';
 
-    open my $handle, '>', \$string
+    open my $handle, '>:raw:utf8', \$string
       or Carp::croak("can't open handle to write to string: $!");
 
     $invocant->write_handle($data, $handle, @_);
+
+    utf8::upgrade($string);
 
     return $string;
   }

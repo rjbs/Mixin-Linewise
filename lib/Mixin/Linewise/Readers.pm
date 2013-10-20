@@ -124,7 +124,8 @@ sub _mk_read_string {
 
     Carp::croak "no string provided" unless defined $string;
 
-    open my $handle, '<', \$string
+    utf8::upgrade($string);
+    open my $handle, '<:raw:utf8', \$string
       or Carp::croak("can't open handle to read from string: $!");
 
     $invocant->$method($handle, @_);
