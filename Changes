@@ -2,6 +2,9 @@ Changelog for Mixin-Linewise
 
 {{$NEXT}}
 
+0.102     2013-11-02 11:36:22 America/New_York
+        - revert the IO::String changes found in 0.101
+
 0.101     2013-11-02 08:00:43 America/New_York
         [THIS MIGHT BREAK YOUR CODE]
         - tweak how read_string handles non-ASCII strings; needs further
