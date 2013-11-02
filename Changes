@@ -2,7 +2,13 @@ Changelog for Mixin-Linewise
 
 {{$NEXT}}
 
-0.100     2013-10-18 15:55:59 America/New_York
+0.101     2013-11-02 08:00:43 America/New_York
+        [THIS MIGHT BREAK YOUR CODE]
+        - tweak how read_string handles non-ASCII strings; needs further
+          automated testing, so be sure to run your test suites
+
+0.100     2013-10-18 15:55:59 America/New_York (TRIAL RELEASE)
+        [THIS MIGHT BREAK YOUR CODE]
         - add binmode option to set binmode on opened filehandles; this
           defaults to encoding(UTF-8); thanks, David Golden!
         - typo fix by the inimitable David Steinbrunner
