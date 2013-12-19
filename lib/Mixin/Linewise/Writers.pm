@@ -6,7 +6,6 @@ package Mixin::Linewise::Writers;
 use 5.8.1; # PerlIO
 use Carp ();
 use IO::File;
-use IO::String;
 
 use Sub::Exporter -setup => {
   exports => { map {; "write_$_" => \"_mk_write_$_" } qw(file string) },
@@ -113,14 +112,20 @@ Any arguments after C<$data> are passed along after to C<write_handle>.
 sub _mk_write_string {
   my ($self, $name, $arg) = @_;
   my $method = defined $arg->{method} ? $arg->{method} : 'write_handle';
+  my $dflt_enc = defined $arg->{binmode} ? $arg->{binmode} : 'encoding(UTF-8)';
 
   sub {
     my ($invocant, $data) = splice @_, 0, 2;
 
+    my $binmode = $dflt_enc;
+    $binmode =~ s/^://; # we add it later
+
     my $string = '';
-    my $handle = IO::String->new($string);
+    open my $handle, ">:$binmode", \$string
+      or die "error opening string for output: $!";
 
     $invocant->write_handle($data, $handle, @_);
+    close $handle or die "error closing string after output: $!";
 
     return $string;
   }

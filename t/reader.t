@@ -46,4 +46,21 @@ for my $pair (
   );
 }
 
+my $utf8_str = <<'END_STR';
+Queensrÿche = 10
+Spin̈al Tap  = 20
+END_STR
+
+# Note that while the input string is octets, the keys below will be
+# characters.  This is intentional.  read_string will have applied a utf-8
+# decoding layer. -- rjbs, 2013-12-19
+{
+  use utf8; # <-- for the benefit of the hash keys
+  is_deeply(
+    MLTests->read_string($utf8_str),
+    { 'Queensrÿche' => 10, 'Spin̈al Tap' => 20 },
+    "read a UTF-8 encoded string",
+  );
+}
+
 done_testing;
