@@ -102,8 +102,11 @@ sub _mk_write_file {
 
   my $string = Your::Pkg->write_string($data);
 
-C<write_string> will create a new IO::String handle, call C<write_handle> to
-write to that handle, and return the resulting string.
+C<write_string> will create a new handle on the given string, then call
+C<write_handle> to write to that handle, and return the resulting string.
+Because handles on strings must be octet-oriented, the string B<must contain
+octets>.  It will be opened in the default binmode established by importing.
+(See L</EXPORTS>, above.)
 
 Any arguments after C<$data> are passed along after to C<write_handle>.
 

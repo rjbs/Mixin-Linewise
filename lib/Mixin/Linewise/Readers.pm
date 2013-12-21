@@ -6,7 +6,6 @@ package Mixin::Linewise::Readers;
 use 5.8.1; # PerlIO
 use Carp ();
 use IO::File;
-use IO::String;
 
 use Sub::Exporter -setup => {
   exports => { map {; "read_$_" => \"_mk_read_$_" } qw(file string) },
@@ -108,8 +107,10 @@ sub _mk_read_file {
 
   Your::Pkg->read_string($string);
 
-If generated, the C<read_string> creates an IO::String handle from the given
-string, and then calls C<read_handle> on the opened handle.
+If generated, the C<read_string> creates a handle on the given string, and
+then calls C<read_handle> on the opened handle.  Because handles on strings
+must be octet-oriented, the string B<must contain octets>.  It will be opened
+in the default binmode established by importing.  (See L</EXPORTS>, above.)
 
 Any arguments after C<$string> are passed along after to C<read_handle>.
 

@@ -1,8 +1,10 @@
 Changelog for Mixin-Linewise
 
 {{$NEXT}}
+        - clean up the docs for changes made in 0.103
 
 0.103     2013-12-19 19:34:04-0500 America/New_York
+        [THIS MIGHT BREAK YOUR CODE]
         - the string methods once again open references to scalars, rather
           than using IO::Scalar
 
