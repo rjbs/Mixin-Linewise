@@ -6,6 +6,7 @@ package Mixin::Linewise::Readers;
 use 5.8.1; # PerlIO
 use Carp ();
 use IO::File;
+use PerlIO::utf8_strict;
 
 use Sub::Exporter -setup => {
   exports => { map {; "read_$_" => \"_mk_read_$_" } qw(file string) },
@@ -51,7 +52,7 @@ Both can be generated with the option "method" which requests that a method
 other than "read_handle" is called with the created IO::Handle.
 
 If given a "binmode" option, any C<read_file> type functions will use
-that as an IO layer, otherwise, the default is C<encoding(UTF-8)>.
+that as an IO layer, otherwise, the default is C<utf8_strict>.
 
   use Mixin::Linewise::Readers -readers => { binmode => "raw" };
   use Mixin::Linewise::Readers -readers => { binmode => "encoding(iso-8859-1)" };
@@ -66,7 +67,7 @@ reading, and then calls C<read_handle> on the opened handle.
 
 An optional hash reference may be passed before C<$filename> with options.
 The only valid option currently is C<binmode>, which overrides any
-default set from C<use> or the built-in C<encoding(UTF-8)>.
+default set from C<use> or the built-in C<utf8_strict>.
 
 Any arguments after C<$filename> are passed along after to C<read_handle>.
 
@@ -76,7 +77,7 @@ sub _mk_read_file {
   my ($self, $name, $arg) = @_;
 
   my $method = defined $arg->{method} ? $arg->{method} : 'read_handle';
-  my $dflt_enc = defined $arg->{binmode} ? $arg->{binmode} : 'encoding(UTF-8)';
+  my $dflt_enc = defined $arg->{binmode} ? $arg->{binmode} : 'utf8_strict';
 
   sub {
     my ($invocant, $options, $filename);
@@ -120,7 +121,7 @@ sub _mk_read_string {
   my ($self, $name, $arg) = @_;
 
   my $method = defined $arg->{method} ? $arg->{method} : 'read_handle';
-  my $dflt_enc = defined $arg->{binmode} ? $arg->{binmode} : 'encoding(UTF-8)';
+  my $dflt_enc = defined $arg->{binmode} ? $arg->{binmode} : 'utf8_strict';
 
   sub {
     my ($invocant, $string) = splice @_, 0, 2;
