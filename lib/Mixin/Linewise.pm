@@ -2,6 +2,7 @@ use strict;
 use warnings;
 package Mixin::Linewise;
 # ABSTRACT: write your linewise code for handles; this does the rest
+
 use 5.006;
 use Carp ();
 Carp::confess "not meant to be loaded";
