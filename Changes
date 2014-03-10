@@ -2,6 +2,10 @@ Changelog for Mixin-Linewise
 
 {{$NEXT}}
 
+0.106     2014-03-10 08:08:39-04:00 America/New_York
+        - avoid dumb v-string warning in dumb perl versions (thanks, Graham
+          Knop, you're not dumb!)
+
 0.105     2014-02-20 21:53:06-05:00 America/New_York
         - update Readers to, by default, use PerlIO::utf8_strict to avoid
           problems with CRLF layer on Win32
