@@ -3,6 +3,7 @@ use warnings;
 use Test::More 0.88;
 
 use lib 't/lib';
+use Encode;
 use MLTests;
 
 my $str = <<'END_STR';
@@ -60,6 +61,24 @@ END_STR
     MLTests->read_string($utf8_str),
     { 'Queensrÿche' => 10, 'Spin̈al Tap' => 20 },
     "read a UTF-8 encoded string",
+  );
+}
+
+# Let's do something weird to test reading strings encoded in something other
+# than UTF-8...
+{
+  use utf8;
+  my $eo_string = <<'END_STR';
+abomenaĵo = 10
+ŝaktabulo = 20
+END_STR
+
+  my $latin3 = Encode::encode('Latin-3', $eo_string);
+
+  is_deeply(
+    MLTests->read_string({ binmode => 'encoding(Latin-3)' }, $latin3),
+    { 'abomenaĵo' => 10, 'ŝaktabulo' => 20 },
+    "read a Latin-3 encoded string",
   );
 }
 

@@ -60,7 +60,7 @@ that as an IO layer, otherwise, the default is C<utf8_strict>.
 =head2 read_file
 
   Your::Pkg->read_file($filename);
-  Your::Pkg->read_file($options, $filename);
+  Your::Pkg->read_file(\%options, $filename);
 
 If generated, the C<read_file> export attempts to open the named file for
 reading, and then calls C<read_handle> on the opened handle.
@@ -107,6 +107,7 @@ sub _mk_read_file {
 =head2 read_string
 
   Your::Pkg->read_string($string);
+  Your::Pkg->read_string(\%option, $string);
 
 If generated, the C<read_string> creates a handle on the given string, and
 then calls C<read_handle> on the opened handle.  Because handles on strings
@@ -114,6 +115,9 @@ must be octet-oriented, the string B<must contain octets>.  It will be opened
 in the default binmode established by importing.  (See L</EXPORTS>, above.)
 
 Any arguments after C<$string> are passed along after to C<read_handle>.
+
+Like C<read_file>, this method can take a leading hashref with one valid
+argument: C<binmode>.
 
 =cut
 
@@ -124,9 +128,10 @@ sub _mk_read_string {
   my $dflt_enc = defined $arg->{binmode} ? $arg->{binmode} : 'utf8_strict';
 
   sub {
+    my ($opt) = ref $_[1] ? splice(@_, 1, 1) : undef;
     my ($invocant, $string) = splice @_, 0, 2;
 
-    my $binmode = $dflt_enc;
+    my $binmode = ($opt && $opt->{binmode}) ? $opt->{binmode} : $dflt_enc;
     $binmode =~ s/^://; # we add it later
 
     Carp::croak "no string provided" unless defined $string;

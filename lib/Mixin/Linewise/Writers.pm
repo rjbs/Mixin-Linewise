@@ -101,14 +101,18 @@ sub _mk_write_file {
 =head2 write_string
 
   my $string = Your::Pkg->write_string($data);
+  my $string = Your::Pkg->write_string(\%option, $data);
 
 C<write_string> will create a new handle on the given string, then call
 C<write_handle> to write to that handle, and return the resulting string.
-Because handles on strings must be octet-oriented, the string B<must contain
+Because handles on strings must be octet-oriented, the string B<will contain
 octets>.  It will be opened in the default binmode established by importing.
-(See L</EXPORTS>, above.)
+(See L</EXPORTS>, above, and the options, below.)
 
 Any arguments after C<$data> are passed along after to C<write_handle>.
+
+Like C<write_file>, this method can take a leading hashref with one valid
+argument: C<binmode>.
 
 =cut
 
@@ -118,9 +122,10 @@ sub _mk_write_string {
   my $dflt_enc = defined $arg->{binmode} ? $arg->{binmode} : 'encoding(UTF-8)';
 
   sub {
+    my ($opt) = ref $_[1] ? splice(@_, 1, 1) : undef;
     my ($invocant, $data) = splice @_, 0, 2;
 
-    my $binmode = $dflt_enc;
+    my $binmode = ($opt && $opt->{binmode}) ? $opt->{binmode} : $dflt_enc;
     $binmode =~ s/^://; # we add it later
 
     my $string = '';
