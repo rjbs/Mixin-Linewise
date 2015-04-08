@@ -2,6 +2,11 @@ Changelog for Mixin-Linewise
 
 {{$NEXT}}
 
+0.107     2015-04-07 20:14:41-04:00 America/New_York
+        - add leading hashref arg for passing binmode to read_string,
+          write_string
+        - do not modify references of args passed to read_file, write_file
+
 0.106     2014-03-10 08:08:39-04:00 America/New_York
         - avoid dumb v-string warning in dumb perl versions (thanks, Graham
           Knop, you're not dumb!)
