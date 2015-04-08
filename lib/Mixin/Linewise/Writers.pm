@@ -83,15 +83,15 @@ sub _mk_write_file {
       ($invocant, $data, $filename) = splice @_, 0, 3;
     }
 
-    $options->{binmode} = $dflt_enc unless defined $options->{binmode};
-    $options->{binmode} =~ s/^://; # we add it later
+    my $binmode = defined $options->{binmode} ? $options->{binmode} : $dflt_enc;
+    $binmode =~ s/^://; # we add it later
 
     # Check the file
     Carp::croak "no filename specified"           unless $filename;
     Carp::croak "'$filename' is not a plain file" if -e $filename && ! -f _;
 
     # Write out the file
-    my $handle = IO::File->new($filename, ">:$options->{binmode}")
+    my $handle = IO::File->new($filename, ">:$binmode")
       or Carp::croak "couldn't write to file '$filename': $!";
 
     $invocant->write_handle($data, $handle, @_);

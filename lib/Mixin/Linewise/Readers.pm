@@ -89,15 +89,15 @@ sub _mk_read_file {
       ($invocant, $filename) = splice @_, 0, 2;
     }
 
-    $options->{binmode} = $dflt_enc unless defined $options->{binmode};
-    $options->{binmode} =~ s/^://; # we add it later
+    my $binmode = defined $options->{binmode} ? $options->{binmode} : $dflt_enc;
+    $binmode =~ s/^://; # we add it later
 
     # Check the file
     Carp::croak "no filename specified"           unless $filename;
     Carp::croak "file '$filename' does not exist" unless -e $filename;
     Carp::croak "'$filename' is not a plain file" unless -f _;
 
-    my $handle = IO::File->new($filename, "<:$options->{binmode}")
+    my $handle = IO::File->new($filename, "<:$binmode")
       or Carp::croak "couldn't read file '$filename': $!";
 
     $invocant->$method($handle, @_);
