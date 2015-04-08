@@ -128,7 +128,7 @@ sub _mk_read_string {
   my $dflt_enc = defined $arg->{binmode} ? $arg->{binmode} : 'utf8_strict';
 
   sub {
-    my ($opt) = ref $_[1] ? splice(@_, 1, 1) : undef;
+    my ($opt) = @_ > 2 && ref $_[1] ? splice(@_, 1, 1) : undef;
     my ($invocant, $string) = splice @_, 0, 2;
 
     my $binmode = ($opt && $opt->{binmode}) ? $opt->{binmode} : $dflt_enc;

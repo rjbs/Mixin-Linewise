@@ -122,7 +122,7 @@ sub _mk_write_string {
   my $dflt_enc = defined $arg->{binmode} ? $arg->{binmode} : 'encoding(UTF-8)';
 
   sub {
-    my ($opt) = ref $_[1] ? splice(@_, 1, 1) : undef;
+    my ($opt) = @_ > 2 && ref $_[1] ? splice(@_, 1, 1) : undef;
     my ($invocant, $data) = splice @_, 0, 2;
 
     my $binmode = ($opt && $opt->{binmode}) ? $opt->{binmode} : $dflt_enc;

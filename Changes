@@ -1,6 +1,7 @@
 Changelog for Mixin-Linewise
 
 {{$NEXT}}
+        - first argument can be options only if there are two options
 
 0.107     2015-04-07 20:14:41-04:00 America/New_York
         - add leading hashref arg for passing binmode to read_string,
