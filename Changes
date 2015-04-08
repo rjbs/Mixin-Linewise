@@ -1,6 +1,8 @@
 Changelog for Mixin-Linewise
 
 {{$NEXT}}
+
+0.108     2015-04-08 14:56:06-04:00 America/New_York
         - first argument can be options only if there are two options
 
 0.107     2015-04-07 20:14:41-04:00 America/New_York
