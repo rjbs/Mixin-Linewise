@@ -95,7 +95,7 @@ sub _mk_read_file {
     # Check the file
     Carp::croak "no filename specified"           unless $filename;
     Carp::croak "file '$filename' does not exist" unless -e $filename;
-    Carp::croak "'$filename' is not a plain file" unless -f _;
+    Carp::croak "'$filename' is not a plain file" unless -r _;
 
     my $handle = IO::File->new($filename, "<:$binmode")
       or Carp::croak "couldn't read file '$filename': $!";
