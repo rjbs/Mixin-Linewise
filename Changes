@@ -1,6 +1,8 @@
 Changelog for Mixin-Linewise
 
 {{$NEXT}}
+
+0.109     2021-06-20 21:10:22-04:00 America/New_York
         - use "-r" test instead of "-f" test, to allow use on (say) named
           pipes (thanks, L. Alberto Giménez!)
         - update author information
