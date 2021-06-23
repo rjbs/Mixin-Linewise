@@ -1,6 +1,8 @@
 Changelog for Mixin-Linewise
 
 {{$NEXT}}
+
+0.110     2021-06-22 22:27:07-04:00 America/New_York
         - tweak the file test again to exclude directories; (is this going to
           turn into something more convoluted in several releases? probably)
 
